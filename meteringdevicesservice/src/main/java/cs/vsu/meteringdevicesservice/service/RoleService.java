@@ -13,7 +13,7 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
-    public Role findByName(String name) {
+    public Role findByName(String name) throws NotFoundException {
         return roleRepository.findByName(name).orElseThrow(NotFoundException::new);
     }
 

@@ -5,6 +5,9 @@ import cs.vsu.meteringdevicesservice.exception.NotFoundException;
 import cs.vsu.meteringdevicesservice.repository.ExecutorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ExecutorService {
     private final ExecutorRepository executorRepository;
@@ -13,8 +16,12 @@ public class ExecutorService {
         this.executorRepository = executorRepository;
     }
 
-    public Executor findById(Long id) {
+    public Executor findById(Long id) throws NotFoundException {
         return executorRepository.findById(id).orElseThrow(NotFoundException::new);
+    }
+
+    public List<Executor> findAll() {
+        return new ArrayList<>(executorRepository.findAll());
     }
 
     public Executor createOrUpdate(Executor executor) {

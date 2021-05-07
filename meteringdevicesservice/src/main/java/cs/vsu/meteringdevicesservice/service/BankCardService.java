@@ -16,7 +16,7 @@ public class BankCardService {
         this.bankCardRepository = bankCardRepository;
     }
 
-    public BankCard findById(Long id) {
+    public BankCard findById(Long id) throws NotFoundException {
         return bankCardRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
