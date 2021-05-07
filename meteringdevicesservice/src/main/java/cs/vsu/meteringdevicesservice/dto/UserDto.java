@@ -10,14 +10,12 @@ public class UserDto {
     private Long id;
     private String username;
     private String name;
-    private String phoneNumber;
 
     public User toUser() {
         User user = new User();
         user.setId(id);
         user.setLogin(username);
         user.setName(name);
-        user.setPhoneNumber(phoneNumber);
         return user;
     }
 
@@ -26,7 +24,6 @@ public class UserDto {
         userDto.setId(user.getId());
         userDto.setUsername(user.getLogin());
         userDto.setName(user.getName());
-        userDto.setPhoneNumber(user.getPhoneNumber());
         return userDto;
     }
 }

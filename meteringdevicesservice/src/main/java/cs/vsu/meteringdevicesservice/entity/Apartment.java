@@ -17,9 +17,6 @@ public class Apartment {
     @Column(name = "number", nullable = false)
     private Integer number;
 
-    @Column(name = "area", nullable = false)
-    private Integer area;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id", nullable = false)
     private Building building;
@@ -34,9 +31,8 @@ public class Apartment {
     public Apartment() {
     }
 
-    public Apartment(Long id, Integer number, Integer area) {
+    public Apartment(Long id, Integer number) {
         this.id = id;
         this.number = number;
-        this.area = area;
     }
 }

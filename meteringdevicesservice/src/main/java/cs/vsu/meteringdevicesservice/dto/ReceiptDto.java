@@ -38,7 +38,6 @@ public class ReceiptDto {
 
     private Long apartmentId;
     private Integer apartmentNumber;
-    private Integer apartmentArea;
 
     private Long paymentId;
     private Double paymentSum;
@@ -50,7 +49,7 @@ public class ReceiptDto {
         Building building = new Building(buildingId, buildingNumber, buildingStreet, buildingCity, buildingPostcode);
         Executor executor = new Executor(executorId, executorName, executorAddress, executorTaxId, executorPhoneNumber);
         ReceiptData receiptData = new ReceiptData(receiptDataId, tariff, building, executor);
-        Apartment apartment = new Apartment(apartmentId, apartmentNumber, apartmentArea);
+        Apartment apartment = new Apartment(apartmentId, apartmentNumber);
 
         Receipt receipt = new Receipt();
         receipt.setApartment(apartment);
@@ -104,7 +103,6 @@ public class ReceiptDto {
 
         Apartment apartment = receipt.getApartment();
         receiptDto.setApartmentId(apartment.getId());
-        receiptDto.setApartmentArea(apartment.getArea());
         receiptDto.setApartmentNumber(apartment.getNumber());
 
         if (receipt.getPayment() != null) {

@@ -21,7 +21,6 @@ public final class JwtUserFactory {
                 user.getLogin(),
                 user.getPassword(),
                 user.getName(),
-                user.getPhoneNumber(),
                 mapToGrantedAuthorities(Collections.singletonList(user.getRole()))
         );
     }

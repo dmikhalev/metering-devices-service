@@ -125,9 +125,6 @@
             <column name="number" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="area" type="INT">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
     </changeSet>
 
@@ -229,9 +226,6 @@
             </column>
             <column name="password" type="CLOB">
                 <constraints nullable="false"/>
-            </column>
-            <column name="phone_number" type="VARCHAR(255)">
-                <constraints nullable="true"/>
             </column>
             <column name="role_id" type="BIGINT">
                 <constraints nullable="false"/>
