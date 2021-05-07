@@ -1,0 +1,36 @@
+.title {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+
+.table {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    row-gap: 20px;
+    max-width: 600px;
+    gap: 50px;
+
+}
+.superLink {
+    display: block;
+    flex-grow: 1;
+}
+.superLink > a {
+    text-decoration: none;
+    text-underline: none;
+    color: black;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.straight {
+    display: flex;
+}
+

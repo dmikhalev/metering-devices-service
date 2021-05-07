@@ -1,0 +1,27 @@
+.button {
+    outline: none;
+    border: none;
+    width: 50px;
+    font-size: 10px;
+}
+
+@media (min-width: 500px) {
+    .button {
+        outline: none;
+        border: none;
+        width: 80px;
+        font-size: 15px;
+    }
+}
+
+.redButton {
+    background-color: #D14351;
+    color: #ffffff;
+    border-radius: 5px;
+}
+.whiteButton:hover {
+    color: #D14351;
+}
+.whiteButton {
+    background-color: transparent;
+}
