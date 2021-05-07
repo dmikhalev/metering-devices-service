@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Entity
@@ -20,5 +20,15 @@ public class News {
 
     @CreatedDate
     @Column(name = "date", nullable = false)
-    private Date date;
+    private Date date = new Date();
+
+    public News() {
+
+    }
+
+    public News(Long id, String text, Date date) {
+        this.id = id;
+        this.text = text;
+        this.date = date;
+    }
 }

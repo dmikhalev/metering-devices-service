@@ -6,8 +6,8 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "role")
-public class Role {
+@Table(name = "info")
+public class Info {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,10 +16,16 @@ public class Role {
     @Column(name = "name", nullable = false)
     private String name;
 
-    public Role() {
+    @Column(name = "text", nullable = false)
+    private String text;
+
+    public Info() {
+
     }
 
-    public Role(String name) {
+    public Info(Long id, String name, String text) {
+        this.id = id;
         this.name = name;
+        this.text = text;
     }
 }

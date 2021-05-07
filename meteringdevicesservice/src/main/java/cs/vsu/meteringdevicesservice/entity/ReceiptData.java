@@ -26,4 +26,15 @@ public class ReceiptData {
     @ManyToOne()
     @JoinColumn(name = "executor_id", nullable = false)
     private Executor executor;
+
+    public ReceiptData() {
+
+    }
+
+    public ReceiptData(Long id, Tariff tariff, Building building, Executor executor) {
+        this.id = id;
+        this.tariff = tariff;
+        this.building = building;
+        this.executor = executor;
+    }
 }

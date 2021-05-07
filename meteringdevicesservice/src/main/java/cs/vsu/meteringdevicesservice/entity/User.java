@@ -33,13 +33,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<BankCard> cards;
 
-    @ManyToMany()
-    @JoinTable(
-            name = "user_apartment",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "apartment_id", referencedColumnName = "id")
-    )
-    private List<Apartment> apartments;
+    @OneToOne(mappedBy = "user")
+    private Apartment apartment;
 
     public User() {
 
