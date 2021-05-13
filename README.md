@@ -13,5 +13,5 @@
 # Документация
 * [Техническое задание pdf](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Technical_task.pdf)
 * [Техническое задание docx](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Technical_task.docx)
-* [Курсовой проект pdf](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Course_project_1_att.pdf)
-* [Курсовой проект docx](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Course_project_1_att.docx)
+* [Курсовой проект pdf](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Course_project_2_att.pdf)
+* [Курсовой проект docx](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Course_project_2_att.docx)
