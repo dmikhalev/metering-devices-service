@@ -36,15 +36,15 @@ public class ReceiptService {
         return new ArrayList<>(receiptRepository.findPaidReceiptsByUserId(userId));
     }
 
-    public Receipt findLastPaidReceiptBy(String serviceName, Long personalCode) {
+    public Receipt findLastPaidReceiptBy(String serviceName, Long personalCode) throws NotFoundException {
         return receiptRepository.findLastPaidReceiptBy(serviceName, personalCode).orElseThrow(NotFoundException::new);
     }
 
-    public Receipt findLastUnpaidReceiptBy(String serviceName, Long personalCode) {
+    public Receipt findLastUnpaidReceiptBy(String serviceName, Long personalCode) throws NotFoundException {
         return receiptRepository.findLastUnpaidReceiptBy(serviceName, personalCode).orElseThrow(NotFoundException::new);
     }
 
-    public Long findPersonalCodeByReceiptDataAndApartment(long receiptDataId, long apartmentId) {
+    public Long findPersonalCodeByReceiptDataAndApartment(long receiptDataId, long apartmentId) throws NotFoundException {
         return receiptRepository.findPersonalCodeByReceiptDataAndApartment(receiptDataId, apartmentId).orElseThrow(NotFoundException::new);
     }
 }

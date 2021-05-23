@@ -9,6 +9,22 @@ import java.util.Map;
 
 @Service
 public class ServiceService {
+    public static enum ServiceName {
+        GAS("Газ"),
+        WATER("Вода"),
+        ELECTRICITY("Электричество");
+
+        private final String viewName;
+
+        ServiceName(String viewName) {
+            this.viewName = viewName;
+        }
+
+        public String getViewName() {
+            return viewName;
+        }
+    }
+
     private final ServiceRepository serviceRepository;
 
     public ServiceService(ServiceRepository serviceRepository) {
@@ -29,9 +45,9 @@ public class ServiceService {
 
     public static String getServiceName(String service) {
         Map<String, String> map = new HashMap<>();
-        map.put("gas", "Газ");
-        map.put("water", "Вода");
-        map.put("electricity", "Электричество");
+        map.put(ServiceName.GAS.name().toLowerCase(), ServiceName.GAS.viewName);
+        map.put(ServiceName.WATER.name().toLowerCase(), ServiceName.WATER.viewName);
+        map.put(ServiceName.ELECTRICITY.name().toLowerCase(), ServiceName.ELECTRICITY.viewName);
         return map.get(service);
     }
 }

@@ -4,6 +4,7 @@ import cs.vsu.meteringdevicesservice.dto.IdDto;
 import cs.vsu.meteringdevicesservice.dto.TariffDto;
 import cs.vsu.meteringdevicesservice.entity.Tariff;
 import cs.vsu.meteringdevicesservice.exception.NotFoundException;
+import cs.vsu.meteringdevicesservice.service.ServiceService;
 import cs.vsu.meteringdevicesservice.service.TariffService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,9 @@ import java.util.Map;
 @RequestMapping(value = "/api/v1/admin/tariff")
 public class AdminTariffRestController {
 
-    private static final String GAS = "gas";
-    private static final String WATER = "water";
-    private static final String ELECTRICITY = "electricity";
+    private static final String GAS = ServiceService.ServiceName.GAS.name().toLowerCase();
+    private static final String WATER = ServiceService.ServiceName.WATER.name().toLowerCase();
+    private static final String ELECTRICITY = ServiceService.ServiceName.ELECTRICITY.name().toLowerCase();
 
     private final TariffService tariffService;
 
