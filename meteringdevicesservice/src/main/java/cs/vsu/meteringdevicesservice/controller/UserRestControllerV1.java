@@ -1,5 +1,6 @@
 package cs.vsu.meteringdevicesservice.controller;
 
+import cs.vsu.meteringdevicesservice.dto.ChangePasswordDto;
 import cs.vsu.meteringdevicesservice.dto.DebtDto;
 import cs.vsu.meteringdevicesservice.dto.PaymentHistoryDto;
 import cs.vsu.meteringdevicesservice.dto.UserPageDto;
@@ -11,17 +12,16 @@ import cs.vsu.meteringdevicesservice.service.ServiceService;
 import cs.vsu.meteringdevicesservice.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 @Slf4j
@@ -36,12 +36,15 @@ public class UserRestControllerV1 {
     private final UserService userService;
     private final ReceiptService receiptService;
     private final ReceiptDataService receiptDataService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserRestControllerV1(UserService userService, ReceiptService receiptService, ReceiptDataService receiptDataService) {
+    public UserRestControllerV1(UserService userService, ReceiptService receiptService, ReceiptDataService receiptDataService,
+                                @Lazy BCryptPasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.receiptService = receiptService;
         this.receiptDataService = receiptDataService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping()
@@ -49,10 +52,28 @@ public class UserRestControllerV1 {
         User user = findAuthorizedUser();
         if (user == null) {
             log.error("User not found.");
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         UserPageDto result = getUserPageDto(user);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/change_pass")
+    public ResponseEntity changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
+        User user = findAuthorizedUser();
+        if (user == null) {
+            log.error("User not found.");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        Map<String, String> response = new HashMap<>();
+        if (passwordEncoder.matches(changePasswordDto.getOldPassword(), user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
+            userService.createOrUpdate(user);
+            response.put("status", "success");
+            return ResponseEntity.ok(response);
+        }
+        response.put("status", "error");
+        return ResponseEntity.of(Optional.of(response));
     }
 
     private UserPageDto getUserPageDto(User user) {
