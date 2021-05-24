@@ -1,6 +1,7 @@
 package cs.vsu.meteringdevicesservice.controller;
 
 import cs.vsu.meteringdevicesservice.dto.IdDto;
+import cs.vsu.meteringdevicesservice.dto.PasswordDto;
 import cs.vsu.meteringdevicesservice.dto.UserDto;
 import cs.vsu.meteringdevicesservice.entity.Role;
 import cs.vsu.meteringdevicesservice.entity.User;
@@ -58,5 +59,22 @@ public class AdminUserRestControllerV1 {
     @DeleteMapping()
     public void deleteUser(@RequestBody IdDto id) {
         userService.delete(id.getId());
+    }
+
+    @PostMapping(value = "/reset_pass")
+    public ResponseEntity<?> resetPassword(@RequestBody IdDto id) {
+        User user = userService.findById(id.getId());
+        if (user != null) {
+            userService.resetPassword(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            log.error("User not found.");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping(value = "/generate_pass")
+    public ResponseEntity<PasswordDto> generatePassword() {
+        return new ResponseEntity<>(new PasswordDto(userService.generatePassword()), HttpStatus.OK);
     }
 }
