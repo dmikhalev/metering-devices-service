@@ -67,21 +67,8 @@ public class AdminTariffRestController {
     }
 
     @PostMapping()
-    public void createTariff(@RequestBody TariffDto tariffDto) {
+    public void createOrUpdateTariff(@RequestBody TariffDto tariffDto) {
         if (tariffDto != null) {
-            tariffService.createOrUpdate(tariffDto.toTariff());
-        }
-    }
-
-    @PutMapping()
-    public void editTariff(@RequestBody TariffDto tariffDto) {
-        if (tariffDto != null) {
-            try {
-                tariffService.findById(tariffDto.getId());
-            } catch (NotFoundException e) {
-                log.error("Tariff not found.", e);
-                return;
-            }
             tariffService.createOrUpdate(tariffDto.toTariff());
         }
     }

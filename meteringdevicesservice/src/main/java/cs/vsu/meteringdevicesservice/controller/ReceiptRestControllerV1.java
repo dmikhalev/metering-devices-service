@@ -22,7 +22,7 @@ public class ReceiptRestControllerV1 {
     }
 
     @GetMapping()
-    public ResponseEntity<ReceiptDto> getReceiptDtoById(@RequestBody IdDto id) {
+    public ResponseEntity<ReceiptDto> getReceiptById(@RequestBody IdDto id) {
         Receipt receipt = receiptService.findById(id.getId());
         if (receipt == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -31,8 +31,8 @@ public class ReceiptRestControllerV1 {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PutMapping()
-    public void editReceipt(@RequestBody ReceiptDto receiptDto) {
+    @PostMapping()
+    public void createOrUpdateReceipt(@RequestBody ReceiptDto receiptDto) {
         if (receiptDto != null) {
             Receipt receipt = receiptDto.toReceipt();
             receiptService.createOrUpdate(receipt);

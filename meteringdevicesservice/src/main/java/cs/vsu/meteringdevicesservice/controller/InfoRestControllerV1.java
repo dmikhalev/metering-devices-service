@@ -47,7 +47,7 @@ public class InfoRestControllerV1 {
     }
 
     @GetMapping(value = "/about")
-    public ResponseEntity<InfoDto> getAboutInfos() {
+    public ResponseEntity<InfoDto> getAbout() {
         Info info;
         try {
             info = infoService.getAboutInfo();
@@ -60,7 +60,7 @@ public class InfoRestControllerV1 {
     }
 
     @GetMapping(value = "/faq")
-    public ResponseEntity<InfoDto> getFQAInfos() {
+    public ResponseEntity<InfoDto> getFQA() {
         Info info;
         try {
             info = infoService.getFQAInfo();
@@ -73,7 +73,7 @@ public class InfoRestControllerV1 {
     }
 
     @GetMapping(value = "/docs")
-    public ResponseEntity<InfoDto> getDocumentsInfos() {
+    public ResponseEntity<InfoDto> getDocuments() {
         Info info;
         try {
             info = infoService.getDocumentsInfo();
@@ -86,24 +86,9 @@ public class InfoRestControllerV1 {
     }
 
     @PostMapping()
-    public void createInfo(@RequestBody InfoDto infoDto) {
+    public void createOrUpdateInfo(@RequestBody InfoDto infoDto) {
         if (infoDto != null) {
             infoService.createOrUpdate(infoDto.toInfo());
-        }
-    }
-
-    @PostMapping(value = "1")
-    public void editInfo(@RequestBody InfoDto infoDto) {
-        if (infoDto != null) {
-            try {
-                Info info = infoService.findByName(infoDto.getName());
-                if (info != null) {
-                    info.setText(infoDto.getText());
-                    infoService.createOrUpdate(info);
-                }
-            } catch (NotFoundException e) {
-                log.error("Info not found.", e);
-            }
         }
     }
 

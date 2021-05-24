@@ -54,7 +54,7 @@ public class PaymentRestControllerV1 {
     }
 
     @GetMapping(value = "/page_1")
-    public ResponseEntity<PaymentDto> getPage1(@RequestBody PaymentDto paymentDto) {
+    public ResponseEntity<PaymentDto> getPaymentPage1(@RequestBody PaymentDto paymentDto) {
         Long personalCode = paymentDto.getPersonalCode();
         String serviceName = paymentDto.getServiceName();
         try {
@@ -69,7 +69,7 @@ public class PaymentRestControllerV1 {
     }
 
     @GetMapping(value = "/page_2")
-    public ResponseEntity<PaymentDto> getPage2(@RequestBody PaymentDto paymentDto) {
+    public ResponseEntity<PaymentDto> getPaymentPage2(@RequestBody PaymentDto paymentDto) {
         Long prevAmount = paymentDto.getPrevAmount();
         Long currAmount = paymentDto.getCurrAmount();
         if (currAmount < prevAmount) {
@@ -84,7 +84,7 @@ public class PaymentRestControllerV1 {
     }
 
     @GetMapping(value = "/page_3")
-    public ResponseEntity<PaymentDto> getPage3(@RequestBody PaymentDto paymentDto) {
+    public ResponseEntity<PaymentDto> getPaymentPage3(@RequestBody PaymentDto paymentDto) {
         User user = findAuthorizedUser();
         if (user != null) {
             Payment lastPayment = paymentService.findLastPaymentByUserId(user.getId());
@@ -99,7 +99,7 @@ public class PaymentRestControllerV1 {
     }
 
     @PostMapping(value = "/page_4")
-    public ResponseEntity<Boolean> getPage4(@RequestBody PaymentDto paymentDto) {
+    public ResponseEntity<Boolean> getPaymentPage4(@RequestBody PaymentDto paymentDto) {
         try {
             Payment payment = paymentDto.toPayment();
             BankCard bankCard = new BankCard(paymentDto.getBankCardId(), paymentDto.getBankCardName(),
@@ -122,20 +122,6 @@ public class PaymentRestControllerV1 {
     public void createPayment(@RequestBody PaymentDto paymentDto) {
         if (paymentDto != null) {
             paymentService.createOrUpdate(paymentDto.toPayment());
-        }
-    }
-
-    @PutMapping()
-    public void editPayment(@RequestBody PaymentDto paymentDto) {
-        if (paymentDto != null) {
-            try {
-                Payment payment = paymentService.findById(paymentDto.getId());
-                if (payment != null) {
-                    paymentService.createOrUpdate(paymentDto.toPayment());
-                }
-            } catch (NotFoundException e) {
-                log.error("Payment not found.", e);
-            }
         }
     }
 

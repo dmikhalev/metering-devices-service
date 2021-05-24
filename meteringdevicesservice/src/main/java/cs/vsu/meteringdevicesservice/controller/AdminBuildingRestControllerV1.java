@@ -49,20 +49,11 @@ public class AdminBuildingRestControllerV1 {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(value = "postcode/{postcode}")
-    public ResponseEntity<List<BuildingDto>> getAllBuildings(@PathVariable Long postcode) {
-        List<Building> buildings = buildingService.findAllByPostcode(postcode);
-        List<BuildingDto> result = buildings.stream()
-                .map(BuildingDto::fromBuilding)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
     @GetMapping(value = "/apartments")
-    public ResponseEntity<List<ApartmentDto>> getAllApartmentsByBuildingId(@RequestBody IdDto id) {
+    public ResponseEntity<List<ApartmentDto>> getAllApartmentsOfBuilding(@RequestBody IdDto buildingId) {
         Building building;
         try {
-            building = buildingService.findById(id.getId());
+            building = buildingService.findById(buildingId.getId());
         } catch (NotFoundException e) {
             log.error("Building not found", e);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -74,21 +65,8 @@ public class AdminBuildingRestControllerV1 {
     }
 
     @PostMapping()
-    public void createBuilding(@RequestBody BuildingDto buildingDto) {
+    public void createOrUpdateBuilding(@RequestBody BuildingDto buildingDto) {
         if (buildingDto != null) {
-            buildingService.createOrUpdate(buildingDto.toBuilding());
-        }
-    }
-
-    @PutMapping()
-    public void editBuilding(@RequestBody BuildingDto buildingDto) {
-        if (buildingDto != null) {
-            try {
-                buildingService.findById(buildingDto.getId());
-            } catch (NotFoundException e) {
-                log.error("Building not found.", e);
-                return;
-            }
             buildingService.createOrUpdate(buildingDto.toBuilding());
         }
     }

@@ -26,7 +26,7 @@ public class AdminRestControllerV1 {
     @GetMapping()
     public ResponseEntity<UserDto> getAdminById(@RequestBody IdDto id) {
         User user = userService.findById(id.getId());
-        if (user == null) {
+        if (user == null || !user.getRole().getName().equalsIgnoreCase("ROLE_ADMIN")) {
             log.error("Admin not found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -35,18 +35,16 @@ public class AdminRestControllerV1 {
     }
 
     @PostMapping()
-    public void createAdmin(@RequestBody UserDto userDto) {
+    public void createOrUpdateAdmin(@RequestBody UserDto userDto) {
         if (userDto != null) {
+            User oldAdmin = userService.findByUsername(userDto.getUsername());
+            if (oldAdmin != null && !oldAdmin.getRole().getName().equalsIgnoreCase("ROLE_ADMIN")) {
+                log.error("Edited user is not admin");
+                return;
+            }
             User admin = userDto.toUser();
             admin.setRole(new Role("ROLE_ADMIN"));
             userService.createOrUpdate(admin);
-        }
-    }
-
-    @PutMapping()
-    public void editAdmin(@RequestBody UserDto userDto) {
-        if (userDto != null) {
-            userService.createOrUpdate(userDto.toUser());
         }
     }
 
@@ -54,5 +52,4 @@ public class AdminRestControllerV1 {
     public void deleteAdmin(@RequestBody IdDto id) {
         userService.delete(id.getId());
     }
-
 }

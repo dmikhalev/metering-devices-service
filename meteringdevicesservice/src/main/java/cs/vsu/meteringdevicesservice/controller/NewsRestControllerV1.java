@@ -38,35 +38,21 @@ public class NewsRestControllerV1 {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(value = "{days_count}")
+    @GetMapping(value = "/{days_count}")
     public ResponseEntity<List<NewsDto>> getNewsForTheLastDays(@PathVariable Integer days_count) {
         List<News> news = newsService.getNewsForTheLastDays(days_count);
         List<NewsDto> result = news.stream().map(NewsDto::fromNews).collect(Collectors.toList());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/edit")
-    public void createNews(@RequestBody NewsDto newsDto) {
+    @PostMapping()
+    public void createOrUpdateNews(@RequestBody NewsDto newsDto) {
         if (newsDto != null) {
             newsService.createOrUpdate(newsDto.toNews());
         }
     }
 
-    @PutMapping(value = "/edit")
-    public void editNews(@RequestBody NewsDto newsDto) {
-        if (newsDto != null) {
-            try {
-                News news = newsService.findById(newsDto.getId());
-                if (news != null) {
-                    newsService.createOrUpdate(newsDto.toNews());
-                }
-            } catch (NotFoundException e) {
-                log.error("News not found.", e);
-            }
-        }
-    }
-
-    @DeleteMapping(value = "/edit")
+    @DeleteMapping()
     public void deleteNews(@RequestBody IdDto id) {
         newsService.delete(id.getId());
     }

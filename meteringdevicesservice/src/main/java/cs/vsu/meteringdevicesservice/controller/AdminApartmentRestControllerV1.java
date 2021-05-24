@@ -52,21 +52,8 @@ public class AdminApartmentRestControllerV1 {
     }
 
     @PostMapping()
-    public void createApartment(@RequestBody ApartmentDto apartmentDto) {
+    public void createOrUpdateApartment(@RequestBody ApartmentDto apartmentDto) {
         if (apartmentDto != null) {
-            apartmentService.createOrUpdate(apartmentDto.toApartment());
-        }
-    }
-
-    @PutMapping()
-    public void editApartment(@RequestBody ApartmentDto apartmentDto) {
-        if (apartmentDto != null) {
-            try {
-                apartmentService.findById(apartmentDto.getApartmentId());
-            } catch (NotFoundException e) {
-                log.error("Apartment not found.", e);
-                return;
-            }
             apartmentService.createOrUpdate(apartmentDto.toApartment());
         }
     }

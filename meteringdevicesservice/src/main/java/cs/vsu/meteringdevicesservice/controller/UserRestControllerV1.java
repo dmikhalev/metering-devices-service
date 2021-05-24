@@ -1,6 +1,8 @@
 package cs.vsu.meteringdevicesservice.controller;
 
-import cs.vsu.meteringdevicesservice.dto.*;
+import cs.vsu.meteringdevicesservice.dto.DebtDto;
+import cs.vsu.meteringdevicesservice.dto.PaymentHistoryDto;
+import cs.vsu.meteringdevicesservice.dto.UserPageDto;
 import cs.vsu.meteringdevicesservice.entity.*;
 import cs.vsu.meteringdevicesservice.security.jwt.JwtUser;
 import cs.vsu.meteringdevicesservice.service.ReceiptDataService;
@@ -13,12 +15,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -135,16 +138,6 @@ public class UserRestControllerV1 {
             result.add(dto);
         });
         return result;
-    }
-
-    @PutMapping()
-    public void editUser(@RequestBody UserDto userDto) {
-        User user = findAuthorizedUser();
-        if (userDto != null && user != null) {
-            User updatedUser = userDto.toUser();
-            updatedUser.setId(user.getId());
-            userService.createOrUpdate(updatedUser);
-        }
     }
 
     private User findAuthorizedUser() {

@@ -49,21 +49,8 @@ public class AdminExecutorRestControllerV1 {
     }
 
     @PostMapping()
-    public void createExecutor(@RequestBody ExecutorDto executorDto) {
+    public void createOrUpdateExecutor(@RequestBody ExecutorDto executorDto) {
         if (executorDto != null) {
-            executorService.createOrUpdate(executorDto.toExecutor());
-        }
-    }
-
-    @PutMapping()
-    public void editBuilding(@RequestBody ExecutorDto executorDto) {
-        if (executorDto != null) {
-            try {
-                executorService.findById(executorDto.getId());
-            } catch (NotFoundException e) {
-                log.error("Executor not found.", e);
-                return;
-            }
             executorService.createOrUpdate(executorDto.toExecutor());
         }
     }

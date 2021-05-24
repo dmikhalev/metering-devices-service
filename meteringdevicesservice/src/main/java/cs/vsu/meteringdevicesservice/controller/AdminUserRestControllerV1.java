@@ -47,18 +47,11 @@ public class AdminUserRestControllerV1 {
     }
 
     @PostMapping()
-    public void createUser(@RequestBody UserDto userDto) {
+    public void createOrUpdateUser(@RequestBody UserDto userDto) {
         if (userDto != null) {
             User user = userDto.toUser();
             user.setRole(new Role("ROLE_USER"));
             userService.createOrUpdate(user);
-        }
-    }
-
-    @PutMapping()
-    public void editUser(@RequestBody UserDto userDto) {
-        if (userDto != null) {
-            userService.createOrUpdate(userDto.toUser());
         }
     }
 
