@@ -3,7 +3,8 @@ import {Card} from "../Card/Card";
 import {Page} from "../Page/Page";
 import s from './History.module.css'
 import React from "react";
-
+import Cookies from "universal-cookie/es6";
+let cookie = new Cookies();
 export class History extends React.Component {
     state = {
         payHistory: [
@@ -28,30 +29,15 @@ export class History extends React.Component {
         super();
         this.getData();
     }
-    // let payHistory = [
-    //     {
-    //         'type': 'Газ',
-    //         'date': '20.03.2021',
-    //         'sum': '2000р',
-    //     },
-    //     {
-    //         'type': 'Вода',
-    //         'date': '20.03.2021',
-    //         'sum': '2000р',
-    //     },
-    //     {
-    //         'type': 'Электричество',
-    //         'date': '20.03.2021',
-    //         'sum': '2000р',
-    //     }
-    // ];
 
     render() {
         let content = (
             <div>
+                <div className={s.card}>
                 <Card title="История платежей">
                     <HistoryIcon height={50} width={50}/>
                 </Card>
+                </div>
                 <table className={s.table}>
                     <thead>
                     <tr>
@@ -81,8 +67,12 @@ export class History extends React.Component {
         );
     }
     async getData() {
-        const currPath = 'http://21f340c28901.ngrok.io/'
-        const r = await (await fetch(currPath + 'api/v1/info/user/payment_history')).json();
+        const r = await (await fetch('/api/v1/user/payment_history', {
+            headers: {
+                Authorization: `Bearer_${cookie.get('token')}`,
+                'Content-Type': 'application/json'
+            }
+        })).json();
         console.log(r);
         this.setState({
             payHistory: r,

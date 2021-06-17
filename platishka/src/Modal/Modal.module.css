@@ -8,13 +8,13 @@
     opacity: 0.4;
 }
 .modal {
-    width: 35%;
-    height: 35%;
+    padding: 35px;
     background-color: #E9F8F8;
     z-index: 100;
     position: absolute;
 }
 .modalContainer {
+
     position: fixed;
     top: 0;
     left: 0;

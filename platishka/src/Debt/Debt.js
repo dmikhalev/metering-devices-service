@@ -9,45 +9,49 @@ import {GasIcon} from "../GasIcon";
 import {ElectroIcon} from "../ElectroIcon";
 import {WaterIcon} from "../WaterIcon";
 import {NoDebtIcon} from "../NoDebtIcon";
+import Cookies from "universal-cookie/es6";
+import s from './Debt.module.css'
 
+let cookie = new Cookies();
 export class Debt extends React.Component {
+    constructor(props) {
+        super(props);
+        this.getData();
+    }
+
     state = {
         gas_debt: 0,
-        water_debt: 0,
-        electro_debt: 0,
+        water_debt: 2,
+        electro_debt: 1,
     }
 
     render() {
         let content = (
             <div>
-                <Card title="Задолженности">
-                    <DebtIcon height={50} width={50}/>
-                </Card>
-                <table>
-                    <tr>
-                        <th></th>
-                        <th>Услуга</th>
-                        <th>Задолженность</th>
-                        <th>Картиночка</th>
-                    </tr>
+                <div className={s.card}>
+                    <Card title="Задолженности" >
+                        <DebtIcon height={50} width={50}/>
+                    </Card>
+                </div>
+                <table className={s.table}>
                     <tr>
                         <td><GasIcon/></td>
                         <td>Газоснабжение</td>
-                        <td> {this.state.gas_debt}</td>
-                        <td>{this.state.gas_debt > 0 ? <DebtIcon/> : <NoDebtIcon/>}</td>
+                        <td className={s.debt}> {this.state.gas_debt > 0 ? "Неоплаченных месяцев: " + this.state.gas_debt : "Все оплачено"}</td>
+                        <td>{this.state.gas_debt > 0 ? <ExistDebtIcon/> : <NoDebtIcon/>}</td>
 
                     </tr>
                     <tr>
                         <td><ElectroIcon/></td>
                         <td>Электричество</td>
-                        <td> {this.state.electro_debt}</td>
-                        <td>{this.state.electro_debt > 0 ? <DebtIcon/> : <NoDebtIcon/>}</td>
+                        <td className={s.debt}> {this.state.electro_debt > 0 ? "Неоплаченных месяцев: " + this.state.electro_debt : "Все оплачено"}</td>
+                        <td>{this.state.electro_debt > 0 ? <ExistDebtIcon/> : <NoDebtIcon/>}</td>
                     </tr>
                     <tr>
                         <td><WaterIcon/></td>
                         <td>Вода</td>
-                        <td> {this.state.water_debt}</td>
-                        <td>{this.state.water_debt > 0 ? <DebtIcon/> : <NoDebtIcon/>}</td>
+                        <td className={s.debt}> {this.state.water_debt > 0 ? "Неоплаченных месяцев: " + this.state.water_debt : "Все оплачено"}</td>
+                        <td>{this.state.water_debt > 0 ? <ExistDebtIcon/> : <NoDebtIcon/>}</td>
                     </tr>
                 </table>
 
@@ -61,8 +65,12 @@ export class Debt extends React.Component {
 
     }
     async getData() {
-        const currPath = 'http://21f340c28901.ngrok.io/'
-        const r = await (await fetch(currPath + 'api/v1/info/user/debt')).json();
+        const r = await (await fetch('/api/v1/user/debt', {
+            headers: {
+                Authorization: `Bearer_${cookie.get('token')}`,
+                'Content-Type': 'application/json'
+            }
+        })).json();
         console.log(r);
         this.setState({
             gas_debt: r.gasDebt,

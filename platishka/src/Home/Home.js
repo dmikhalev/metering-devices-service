@@ -13,8 +13,12 @@ import {FlatIcon} from "../FlatIcon";
 import {UsersIcon} from "../UsersIcon";
 import {InfoIcon} from "../InfoIcon";
 import {TarifIcon} from "../TarifIcon";
-
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 export function Home({loggedIn, isAdmin}) {
+    loggedIn = cookies.get('isLoggedIn') === "true";
+    isAdmin = cookies.get('role') === 'admin'; // get his role
+
     let content = (
         <React.Fragment className={s.straight}>
             <div className={s.title}>
@@ -43,7 +47,7 @@ export function Home({loggedIn, isAdmin}) {
             <section className={s.table}>
                 <div className={s.column}>
                     <div className={s.superLink}>
-                        <Link to="/pay">
+                        <Link to="/payment">
                             <Card title="Оплатить квитанцию">
                                 <PayCardIcon/>
                             </Card>
@@ -78,7 +82,7 @@ export function Home({loggedIn, isAdmin}) {
             </section>
         )
     }
-    if (isAdmin) {
+    if (isAdmin && loggedIn) {
         content = (
             <section className={s.table}>
                 <div className={s.column}>
@@ -91,7 +95,7 @@ export function Home({loggedIn, isAdmin}) {
                     </div>
                     <div className={s.superLink}>
                         <Link to="/admin/info">
-                            <Card title="Добавить информацию">
+                            <Card title="Изменение информации">
                                 <InfoIcon/>
                             </Card>
                         </Link>
@@ -100,7 +104,7 @@ export function Home({loggedIn, isAdmin}) {
                 <div className={s.column}>
                     <div className={s.superLink}>
                         <Link to="/admin/users">
-                            <Card title="Пользователи">
+                            <Card title="&nbsp;&emsp;&emsp;Пользователи&emsp;&emsp;&nbsp;">
                                 <UsersIcon/>
                             </Card>
                         </Link>
@@ -119,7 +123,7 @@ export function Home({loggedIn, isAdmin}) {
     }
 
     return (
-        <Page isLoggedIn={true}>
+        <Page isLoggedIn={loggedIn}>
             {content}
         </Page>
     );

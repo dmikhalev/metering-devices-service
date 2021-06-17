@@ -26,8 +26,7 @@ export class Docs extends React.Component {
     }
 
     async getData() {
-        const currPath = 'http://e06b8e648d8c.ngrok.io/'
-        const r = await (await fetch(currPath + 'api/v1/info/docs')).json();
+        const r = await (await fetch('api/v1/info/docs')).json();
         console.log(r);
         this.setState({
             docs: r.text,

@@ -25,8 +25,7 @@ export class About extends React.Component {
     }
 
     async getData() {
-        const currPath = 'http://21f340c28901.ngrok.io/'
-        const r = await (await fetch(currPath + 'api/v1/info/about')).json();
+        const r = await (await fetch('/api/v1/info/about')).json();
         console.log(r);
         this.setState({
             about: r.text,

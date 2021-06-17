@@ -1,0 +1,50 @@
+.card {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    horiz-align: center;
+    row-gap: 10px;
+    gap: 20px;
+    margin: 0 auto 10px;
+    width: 250px;
+    border: 1px solid #000000;
+    border-radius: 12px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.mybutton {
+    width: 161px;
+    height: 25px;
+
+    background: #F6FCFC;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 7px;
+}
+
+.address {
+    font-size: 17px;
+    margin: 10px;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    /*border: 1px solid #dddddd;*/
+    border-collapse: collapse;
+    font-size: 25px;
+}
+tr {
+    height: 30px;
+}
+.tableContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 50px;
+}
+
