@@ -443,4 +443,90 @@
     </changeSet>
 
 
+    <changeSet id="1.0.26" author="autorname">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM info
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="info">
+            <column name="name" value="about"/>
+            <column name="text" value="about"/>
+        </insert>
+        <insert tableName="info">
+            <column name="name" value="faq"/>
+            <column name="text" value="faq"/>
+        </insert>
+        <insert tableName="info">
+            <column name="name" value="docs"/>
+            <column name="text" value="documents"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="1.0.27" author="autorname">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM service
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="service">
+            <column name="name" value="water"/>
+        </insert>
+        <insert tableName="service">
+            <column name="name" value="gas"/>
+        </insert>
+        <insert tableName="service">
+            <column name="name" value="electricity"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="1.0.28" author="autorname">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM executor
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="executor">
+            <column name="name" value="ООО &quot;Вода в Дом&quot;"/>
+            <column name="address" value="г.Москва, пр.Ленина, д.123"/>
+            <column name="tax_id" value="2759485097"/>
+            <column name="phone_number" value="+7 (950) 455-76-78"/>
+        </insert>
+        <insert tableName="executor">
+            <column name="name" value="ООО &quot;Огонек&quot;"/>
+            <column name="address" value="г.Москва, ул.Пушкина, д.34"/>
+            <column name="tax_id" value="4759678364"/>
+            <column name="phone_number" value="+7 (990) 555-66-77"/>
+        </insert>
+        <insert tableName="executor">
+            <column name="name" value="ООО &quot;РосЭлектрос&quot;"/>
+            <column name="address" value="г.Москва, ул.Цветочная, д.64б"/>
+            <column name="tax_id" value="5675963320"/>
+            <column name="phone_number" value="288-55-44"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="1.0.29" author="autorname">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM tariff
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="tariff">
+            <column name="service_id" value="1"/>
+            <column name="cost" value="0"/>
+            <column name="date" value="${now}"/>
+        </insert>
+        <insert tableName="tariff">
+            <column name="service_id" value="2"/>
+            <column name="cost" value="0"/>
+            <column name="date" value="${now}"/>
+        </insert>
+        <insert tableName="tariff">
+            <column name="service_id" value="3"/>
+            <column name="cost" value="0"/>
+            <column name="date" value="${now}"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>
