@@ -23,9 +23,6 @@ public class Building {
     @Column(name = "city", nullable = false)
     private String city;
 
-    @Column(name = "postcode", nullable = false)
-    private Long postcode;
-
     @OneToMany(mappedBy = "building")
     private List<Apartment> apartments;
 
@@ -33,11 +30,16 @@ public class Building {
 
     }
 
-    public Building(Long id, String number, String street, String city, Long postcode) {
+    public Building(Long id, String number, String street, String city) {
         this.id = id;
         this.number = number;
         this.street = street;
         this.city = city;
-        this.postcode = postcode;
+    }
+
+    public Building(String number, String street, String city) {
+        this.number = number;
+        this.street = street;
+        this.city = city;
     }
 }

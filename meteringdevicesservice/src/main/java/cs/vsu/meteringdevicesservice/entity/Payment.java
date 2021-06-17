@@ -23,10 +23,18 @@ public class Payment {
     private Date date;
 
     @ManyToOne()
-    @JoinColumn(name = "card_id", nullable = false)
+    @JoinColumn(name = "card_id")
     private BankCard bankCard;
 
+    @OneToOne(mappedBy = "payment")
+    private Receipt receipt;
+
     public Payment() {
+    }
+
+    public Payment(Double sum) {
+        this.sum = sum;
+        this.date = new Date();
     }
 
     public Payment(Long id, Double sum, Date date, BankCard bankCard) {

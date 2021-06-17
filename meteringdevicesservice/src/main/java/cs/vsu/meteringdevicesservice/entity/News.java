@@ -26,6 +26,11 @@ public class News {
 
     }
 
+    public News(String text) {
+        this.text = text;
+        this.date = new Date();
+    }
+
     public News(Long id, String text, Date date) {
         this.id = id;
         this.text = text;

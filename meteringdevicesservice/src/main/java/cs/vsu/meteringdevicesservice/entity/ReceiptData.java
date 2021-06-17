@@ -1,10 +1,8 @@
 package cs.vsu.meteringdevicesservice.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 @Data
 @Entity
@@ -31,8 +29,7 @@ public class ReceiptData {
 
     }
 
-    public ReceiptData(Long id, Tariff tariff, Building building, Executor executor) {
-        this.id = id;
+    public ReceiptData(Tariff tariff, Building building, Executor executor) {
         this.tariff = tariff;
         this.building = building;
         this.executor = executor;

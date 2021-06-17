@@ -39,4 +39,15 @@ public class Receipt {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apartment_id", nullable = false)
     private Apartment apartment;
+
+    public Receipt() {
+    }
+
+    public Receipt(Long prevAmount, Long personalCode, ReceiptData receiptData, Apartment apartment) {
+        this.prevAmount = prevAmount;
+        this.personalCode = personalCode;
+        this.receiptData = receiptData;
+        this.apartment = apartment;
+        this.date = new Date();
+    }
 }

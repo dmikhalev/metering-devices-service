@@ -31,10 +31,8 @@ public class Tariff {
 
     }
 
-    public Tariff(Long id, Double cost, Date date, Service service) {
-        this.id = id;
+    public Tariff(Double cost, Date date) {
         this.cost = cost;
         this.date = date;
-        this.service = service;
     }
 }
