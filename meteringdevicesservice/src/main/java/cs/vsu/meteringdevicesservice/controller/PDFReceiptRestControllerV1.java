@@ -29,7 +29,7 @@ public class PDFReceiptRestControllerV1 {
     }
 
     @PostMapping(value = "/{days_count}")
-    public ResponseEntity<PDFDto> changePassword(@RequestBody UserDto userDto, @PathVariable Integer days_count) {
+    public ResponseEntity<PDFDto> getPDFReceipt(@RequestBody UserDto userDto, @PathVariable Integer days_count) {
         User user = userService.findByUsername(userDto.getUsername());
         if (user == null) {
             log.error("User not found.");
