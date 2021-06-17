@@ -147,7 +147,16 @@ public class UserRestControllerV1 {
         }
         List<PaymentHistoryDto> result = getPaymentHistoryDtos(user);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
+    @GetMapping(value = "/username")
+    public ResponseEntity<String> getUsername() {
+        User user = findAuthorizedUser();
+        if (user == null) {
+            log.error("User not found.");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(user.getLogin(), HttpStatus.OK);
     }
 
     private List<PaymentHistoryDto> getPaymentHistoryDtos(User user) {
