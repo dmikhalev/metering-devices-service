@@ -24,8 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String LOGIN_ENDPOINT = "/api/v1/auth/login";
     private static final String INFO_ENDPOINT = "/api/v1/info/**";
     private static final String PAY_ENDPOINT = "/api/v1/pay/**";
-
-
+    private static final String PDF_RECEIPT_ENDPOINT = "/api/v1/pdf_receipt/**";
 
     @Autowired
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
@@ -49,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(LOGIN_ENDPOINT).permitAll()
                 .antMatchers(INFO_ENDPOINT).permitAll()
                 .antMatchers(PAY_ENDPOINT).permitAll()
+                .antMatchers(PDF_RECEIPT_ENDPOINT).permitAll()
                 .antMatchers(USER_ENDPOINT).hasRole("USER")
                 .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .anyRequest().authenticated()
