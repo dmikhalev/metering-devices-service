@@ -10,4 +10,10 @@ public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
     Optional<Apartment> findByBuilding_IdAndNumber(Long buildingId, Integer number);
 
     List<Apartment> findAllByBuilding_Id(Long buildingId);
+
+    Optional<Apartment> findApartmentByWaterCode(long waterCode);
+
+    Optional<Apartment> findApartmentByGasCode(long gasCode);
+
+    Optional<Apartment> findApartmentByElectricityCode(long electricityCode);
 }
