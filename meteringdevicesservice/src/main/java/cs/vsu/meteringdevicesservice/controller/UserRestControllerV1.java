@@ -23,15 +23,15 @@ import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static cs.vsu.meteringdevicesservice.service.ServiceService.ServiceName.GAS;
+import static cs.vsu.meteringdevicesservice.service.ServiceService.ServiceName.WATER;
+import static cs.vsu.meteringdevicesservice.service.ServiceService.ServiceName.ELECTRICITY;
+
 
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/v1/user")
 public class UserRestControllerV1 {
-
-    private static final String GAS = "gas";
-    private static final String WATER = "water";
-    private static final String ELECTRICITY = "electricity";
 
     private final UserService userService;
     private final ReceiptService receiptService;
@@ -83,19 +83,18 @@ public class UserRestControllerV1 {
         Apartment apartment = user.getApartment();
         Building building = apartment.getBuilding();
         List<ReceiptData> receiptDataList = receiptDataService.findAllByBuildingId(building.getId());
+        result.setGasPersonalCode(apartment.getGasCode());
+        result.setWaterPersonalCode(apartment.getWaterCode());
+        result.setElectPersonalCode(apartment.getElectricityCode());
         receiptDataList.forEach(rd -> {
             String service = rd.getTariff().getService().getName();
             String executorName = rd.getExecutor().getName();
-            Long personalCode = receiptService.findPersonalCodeByReceiptDataAndApartment(rd.getId(), apartment.getId());
-            if (GAS.equalsIgnoreCase(service)) {
+            if (GAS.name().equalsIgnoreCase(service)) {
                 result.setGasExecutor(executorName);
-                result.setGasPersonalCode(personalCode);
-            } else if (WATER.equalsIgnoreCase(service)) {
+            } else if (WATER.name().equalsIgnoreCase(service)) {
                 result.setWaterExecutor(executorName);
-                result.setWaterPersonalCode(personalCode);
-            } else if (ELECTRICITY.equalsIgnoreCase(service)) {
+            } else if (ELECTRICITY.name().equalsIgnoreCase(service)) {
                 result.setElectExecutor(executorName);
-                result.setElectPersonalCode(personalCode);
             }
         });
         return result;
@@ -118,20 +117,25 @@ public class UserRestControllerV1 {
         int gas = 0;
         int water = 0;
         int elect = 0;
+        Date now = new Date();
         for (Receipt r : unpaidReceipts) {
             String service = r.getReceiptData().getTariff().getService().getName();
-            if (GAS.equalsIgnoreCase(service)) {
-                gas++;
-            } else if (WATER.equalsIgnoreCase(service)) {
-                water++;
-            } else if (ELECTRICITY.equalsIgnoreCase(service)) {
-                elect++;
+            if (GAS.name().equalsIgnoreCase(service)) {
+                gas = 1 + getMonthsBetween(r.getDate(), now);
+            } else if (WATER.name().equalsIgnoreCase(service)) {
+                water = 1 + getMonthsBetween(r.getDate(), now);
+            } else if (ELECTRICITY.name().equalsIgnoreCase(service)) {
+                elect = 1 + getMonthsBetween(r.getDate(), now);
             }
         }
         result.setGasDebt(gas);
         result.setWaterDebt(water);
         result.setElectDebt(elect);
         return result;
+    }
+
+    public int getMonthsBetween(Date date1, Date date2) {
+        return (int) ((Math.max(date1.getTime(), date2.getTime()) - Math.min(date1.getTime(), date2.getTime())) / (1000 * 60 * 60 * 24) / 30);
     }
 
     @GetMapping(value = "/payment_history")
