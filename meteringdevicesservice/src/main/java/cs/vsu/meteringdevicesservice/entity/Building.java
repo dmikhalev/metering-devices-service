@@ -28,4 +28,16 @@ public class Building {
 
     @OneToMany(mappedBy = "building")
     private List<Apartment> apartments;
+
+    public Building() {
+
+    }
+
+    public Building(Long id, String number, String street, String city, Long postcode) {
+        this.id = id;
+        this.number = number;
+        this.street = street;
+        this.city = city;
+        this.postcode = postcode;
+    }
 }

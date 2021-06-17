@@ -4,7 +4,8 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Data
 @Entity
@@ -16,7 +17,7 @@ public class Tariff {
     private Long id;
 
     @Column(name = "cost", nullable = false)
-    private Long cost;
+    private Double cost;
 
     @CreatedDate
     @Column(name = "date", nullable = false)
@@ -25,4 +26,15 @@ public class Tariff {
     @ManyToOne()
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
+
+    public Tariff() {
+
+    }
+
+    public Tariff(Long id, Double cost, Date date, Service service) {
+        this.id = id;
+        this.cost = cost;
+        this.date = date;
+        this.service = service;
+    }
 }

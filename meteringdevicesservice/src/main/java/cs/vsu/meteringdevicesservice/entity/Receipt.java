@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Entity
@@ -15,8 +15,14 @@ public class Receipt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "amount", nullable = false)
-    private Long amount;
+    @Column(name = "prev_amount")
+    private Long prevAmount;
+
+    @Column(name = "curr_amount")
+    private Long currAmount;
+
+    @Column(name = "personal_code", nullable = false)
+    private Long personalCode;
 
     @CreatedDate
     @Column(name = "date", nullable = false)
@@ -26,7 +32,11 @@ public class Receipt {
     @JoinColumn(name = "receipt_data_id", nullable = false)
     private ReceiptData receiptData;
 
-    @ManyToOne()
+    @OneToOne()
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apartment_id", nullable = false)
     private Apartment apartment;
 }

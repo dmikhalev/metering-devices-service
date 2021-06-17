@@ -4,6 +4,9 @@ import cs.vsu.meteringdevicesservice.exception.NotFoundException;
 import cs.vsu.meteringdevicesservice.repository.ServiceRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class ServiceService {
     private final ServiceRepository serviceRepository;
@@ -12,7 +15,7 @@ public class ServiceService {
         this.serviceRepository = serviceRepository;
     }
 
-    public cs.vsu.meteringdevicesservice.entity.Service findByName(String name) {
+    public cs.vsu.meteringdevicesservice.entity.Service findByName(String name) throws NotFoundException {
         return serviceRepository.findByName(name).orElseThrow(NotFoundException::new);
     }
 
@@ -22,5 +25,13 @@ public class ServiceService {
 
     public void delete(Long id) {
         serviceRepository.deleteById(id);
+    }
+
+    public static String getServiceName(String service) {
+        Map<String, String> map = new HashMap<>();
+        map.put("gas", "Газ");
+        map.put("water", "Вода");
+        map.put("electricity", "Электричество");
+        return map.get(service);
     }
 }

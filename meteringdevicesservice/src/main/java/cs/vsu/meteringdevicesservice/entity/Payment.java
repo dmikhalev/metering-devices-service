@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Entity
@@ -16,21 +16,23 @@ public class Payment {
     private Long id;
 
     @Column(name = "sum", nullable = false)
-    private Long sum;
+    private Double sum;
 
     @CreatedDate
     @Column(name = "date", nullable = false)
     private Date date;
 
     @ManyToOne()
-    @JoinColumn(name = "apartment_id", nullable = false)
-    private Apartment apartment;
-
-    @ManyToOne()
     @JoinColumn(name = "card_id", nullable = false)
     private BankCard bankCard;
 
-    @ManyToOne()
-    @JoinColumn(name = "service_id", nullable = false)
-    private Service service;
+    public Payment() {
+    }
+
+    public Payment(Long id, Double sum, Date date, BankCard bankCard) {
+        this.id = id;
+        this.sum = sum;
+        this.date = date;
+        this.bankCard = bankCard;
+    }
 }

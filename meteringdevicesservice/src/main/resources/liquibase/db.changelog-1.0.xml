@@ -41,7 +41,7 @@
             <column name="service_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="cost" type="INT">
+            <column name="cost" type="FLOAT">
                 <constraints nullable="false"/>
             </column>
             <column name="date" type="TIMESTAMP">
@@ -119,10 +119,10 @@
             <column name="building_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="number" type="INT">
-                <constraints nullable="false"/>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="true"/>
             </column>
-            <column name="area" type="INT">
+            <column name="number" type="INT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -134,14 +134,23 @@
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="amount" type="BIGINT">
+            <column name="prev_amount" type="BIGINT">
                 <constraints nullable="false"/>
+            </column>
+            <column name="curr_amount" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="personal_code" type="BIGINT">
+                <constraints nullable="true"/>
             </column>
             <column name="receipt_data_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
             <column name="apartment_id" type="BIGINT">
                 <constraints nullable="false"/>
+            </column>
+            <column name="payment_id" type="BIGINT">
+                <constraints nullable="true"/>
             </column>
             <column name="date" type="TIMESTAMP">
                 <constraints nullable="false"/>
@@ -161,14 +170,14 @@
             <column name="card_number" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="cvv" type="INT">
+            <column name="end_year" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="end_date" type="VARCHAR(10)">
+            <column name="end_month" type="INT">
                 <constraints nullable="false"/>
             </column>
             <column name="user_id" type="BIGINT">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
         </createTable>
     </changeSet>
@@ -179,19 +188,13 @@
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="sum" type="BIGINT">
+            <column name="sum" type="FLOAT">
                 <constraints nullable="false"/>
             </column>
             <column name="date" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="card_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="apartment_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="service_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -224,24 +227,22 @@
             <column name="password" type="CLOB">
                 <constraints nullable="false"/>
             </column>
-            <column name="phone_number" type="VARCHAR(255)">
-                <constraints nullable="true"/>
-            </column>
             <column name="role_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet id="1.0.12" author="autorname">
-        <createTable tableName="user_apartment">
+
+    <changeSet id="1.0.28" author="autorname">
+        <createTable tableName="info">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="user_id" type="BIGINT">
+            <column name="name" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="apartment_id" type="BIGINT">
+            <column name="text" type="CLOB">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -313,19 +314,10 @@
 
     <changeSet id="1.0.20" author="autorname">
         <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="user_apartment"
-                                 constraintName="fk_user_id_1"
+                                 baseTableName="apartment"
+                                 constraintName="userid_fk"
                                  referencedColumnNames="id"
                                  referencedTableName="users"/>
-    </changeSet>
-
-
-    <changeSet id="1.0.21" author="autorname">
-        <addForeignKeyConstraint baseColumnNames="apartment_id"
-                                 baseTableName="user_apartment"
-                                 constraintName="fk_apartment_id_2"
-                                 referencedColumnNames="id"
-                                 referencedTableName="apartment"/>
     </changeSet>
 
 
@@ -339,20 +331,11 @@
 
 
     <changeSet id="1.0.23" author="autorname">
-        <addForeignKeyConstraint baseColumnNames="apartment_id"
-                                 baseTableName="payment"
-                                 constraintName="fk_apartment_id_3"
+        <addForeignKeyConstraint baseColumnNames="payment_id"
+                                 baseTableName="receipt"
+                                 constraintName="fk_payment_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="apartment"/>
-    </changeSet>
-
-
-    <changeSet id="1.0.24" author="autorname">
-        <addForeignKeyConstraint baseColumnNames="service_id"
-                                 baseTableName="payment"
-                                 constraintName="fk_service_id_2"
-                                 referencedColumnNames="id"
-                                 referencedTableName="service"/>
+                                 referencedTableName="payment"/>
     </changeSet>
 
 

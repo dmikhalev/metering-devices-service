@@ -13,8 +13,12 @@ public class PaymentService {
         this.paymentRepository = paymentRepository;
     }
 
-    public Payment findById(Long id) {
+    public Payment findById(Long id) throws NotFoundException {
         return paymentRepository.findById(id).orElseThrow(NotFoundException::new);
+    }
+
+    public Payment findLastPaymentByUserId(long id){
+        return paymentRepository.findLastByUserId(id).orElseThrow(NotFoundException::new);
     }
 
     public Payment createOrUpdate(Payment payment) {
@@ -23,5 +27,9 @@ public class PaymentService {
 
     public void delete(Long id) {
         paymentRepository.deleteById(id);
+    }
+
+    public Double calcPrice(long prevVal, long currVal, double cost) {
+        return (currVal - prevVal) * cost;
     }
 }

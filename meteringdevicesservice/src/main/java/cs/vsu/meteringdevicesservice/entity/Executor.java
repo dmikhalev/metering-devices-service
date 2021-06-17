@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+
 @Data
 @Entity
 @Table(name = "executor")
@@ -24,4 +25,16 @@ public class Executor {
 
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
+
+    public Executor() {
+
+    }
+
+    public Executor(Long id, String name, String address, Long taxId, String phoneNumber) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.taxId = taxId;
+        this.phoneNumber = phoneNumber;
+    }
 }

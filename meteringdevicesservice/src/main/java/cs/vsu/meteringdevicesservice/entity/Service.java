@@ -15,4 +15,13 @@ public class Service {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    public Service() {
+
+    }
+
+    public Service(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
