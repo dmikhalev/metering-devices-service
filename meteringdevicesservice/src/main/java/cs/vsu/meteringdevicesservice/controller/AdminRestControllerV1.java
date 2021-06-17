@@ -7,8 +7,10 @@ import cs.vsu.meteringdevicesservice.entity.User;
 import cs.vsu.meteringdevicesservice.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -17,10 +19,12 @@ import org.springframework.web.bind.annotation.*;
 public class AdminRestControllerV1 {
 
     private final UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public AdminRestControllerV1(UserService userService) {
+    public AdminRestControllerV1(UserService userService, @Lazy BCryptPasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping()
@@ -42,7 +46,7 @@ public class AdminRestControllerV1 {
                 log.error("Edited user is not admin");
                 return;
             }
-            User admin = userDto.toUser();
+            User admin = userDto.toUser(passwordEncoder);
             admin.setRole(new Role("ROLE_ADMIN"));
             userService.createOrUpdate(admin);
         }

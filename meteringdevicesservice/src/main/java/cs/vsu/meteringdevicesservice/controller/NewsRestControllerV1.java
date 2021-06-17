@@ -48,7 +48,8 @@ public class NewsRestControllerV1 {
     @PostMapping()
     public void createOrUpdateNews(@RequestBody NewsDto newsDto) {
         if (newsDto != null) {
-            newsService.createOrUpdate(newsDto.toNews());
+            News news = new News(newsDto.getText());
+            newsService.createOrUpdate(news);
         }
     }
 

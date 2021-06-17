@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/v1/info")
+@RequestMapping(value = "/api/v1/")
 public class InfoRestControllerV1 {
 
     private final InfoService infoService;
@@ -26,7 +26,7 @@ public class InfoRestControllerV1 {
         this.infoService = infoService;
     }
 
-    @GetMapping()
+    @GetMapping(value = "info")
     public ResponseEntity<InfoDto> getInfoById(@RequestBody IdDto id) {
         Info info;
         try {
@@ -39,14 +39,14 @@ public class InfoRestControllerV1 {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/all")
+    @GetMapping(value = "info/all")
     public ResponseEntity<List<InfoDto>> getAllInfos() {
         List<Info> infos = infoService.findAll();
         List<InfoDto> result = infos.stream().map(InfoDto::fromInfo).collect(Collectors.toList());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/about")
+    @GetMapping(value = "info/about")
     public ResponseEntity<InfoDto> getAbout() {
         Info info;
         try {
@@ -59,7 +59,7 @@ public class InfoRestControllerV1 {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/faq")
+    @GetMapping(value = "info/faq")
     public ResponseEntity<InfoDto> getFQA() {
         Info info;
         try {
@@ -72,7 +72,7 @@ public class InfoRestControllerV1 {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/docs")
+    @GetMapping(value = "info/docs")
     public ResponseEntity<InfoDto> getDocuments() {
         Info info;
         try {
@@ -85,14 +85,22 @@ public class InfoRestControllerV1 {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PostMapping()
-    public void createOrUpdateInfo(@RequestBody InfoDto infoDto) {
+    @PostMapping(value = "admin/info")
+    public void updateInfo(@RequestBody InfoDto infoDto) {
         if (infoDto != null) {
-            infoService.createOrUpdate(infoDto.toInfo());
+            try {
+                Info info = infoService.findByName(infoDto.getName());
+                if (info != null) {
+                    info.setText(infoDto.getText());
+                    infoService.createOrUpdate(info);
+                }
+            } catch (NotFoundException e) {
+                log.error("Info not found.", e);
+            }
         }
     }
 
-    @DeleteMapping()
+    @DeleteMapping(value = "admin/info")
     public void deleteInfo(@RequestBody IdDto id) {
         infoService.delete(id.getId());
     }

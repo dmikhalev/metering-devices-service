@@ -5,11 +5,14 @@ import cs.vsu.meteringdevicesservice.dto.PasswordDto;
 import cs.vsu.meteringdevicesservice.dto.UserDto;
 import cs.vsu.meteringdevicesservice.entity.Role;
 import cs.vsu.meteringdevicesservice.entity.User;
+import cs.vsu.meteringdevicesservice.service.RoleService;
 import cs.vsu.meteringdevicesservice.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,10 +24,15 @@ import java.util.stream.Collectors;
 public class AdminUserRestControllerV1 {
 
     private final UserService userService;
+    private final RoleService roleService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public AdminUserRestControllerV1(UserService userService) {
+    public AdminUserRestControllerV1(UserService userService, RoleService roleService,
+                                     @Lazy BCryptPasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping()
@@ -50,8 +58,19 @@ public class AdminUserRestControllerV1 {
     @PostMapping()
     public void createOrUpdateUser(@RequestBody UserDto userDto) {
         if (userDto != null) {
-            User user = userDto.toUser();
-            user.setRole(new Role("ROLE_USER"));
+            User user;
+            if (userDto.getId() != null) {
+                user = userService.findById(userDto.getId());
+                user.setName(userDto.getName());
+                user.setLogin(userDto.getUsername());
+                if (userDto.getPassword() != null && !userDto.getPassword().isEmpty()) {
+                    user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+                }
+            } else {
+                user = userDto.toUser(passwordEncoder);
+                Role role = roleService.findByName("ROLE_USER");
+                user.setRole(role);
+            }
             userService.createOrUpdate(user);
         }
     }

@@ -23,6 +23,15 @@ public class ServiceService {
         public String getViewName() {
             return viewName;
         }
+
+        public static ServiceName findByName(String name) {
+            for (ServiceName s : ServiceName.values()) {
+                if (s.name().equalsIgnoreCase(name)) {
+                    return s;
+                }
+            }
+            return null;
+        }
     }
 
     private final ServiceRepository serviceRepository;

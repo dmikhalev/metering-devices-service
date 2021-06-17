@@ -12,19 +12,16 @@ public class TariffDto {
     private Long id;
     private Double cost;
     private Date date;
-
-    private Long serviceId;
     private String serviceName;
 
     public TariffDto() {
 
     }
 
-    public TariffDto(Long id, Double cost, Date date, Long serviceId, String serviceName) {
+    public TariffDto(Long id, Double cost, Date date, String serviceName) {
         this.id = id;
         this.cost = cost;
         this.date = date;
-        this.serviceId = serviceId;
         this.serviceName = serviceName;
     }
 
@@ -32,8 +29,7 @@ public class TariffDto {
         if (date == null) {
             date = new java.util.Date();
         }
-        Service service = new Service(serviceId, serviceName);
-        return new Tariff(id, cost, date, service);
+        return new Tariff(cost, date);
     }
 
     public static TariffDto fromTariff(Tariff tariff) {
@@ -41,7 +37,6 @@ public class TariffDto {
         return new TariffDto(tariff.getId(),
                 tariff.getCost(),
                 tariff.getDate(),
-                service.getId(),
                 service.getName());
     }
 }

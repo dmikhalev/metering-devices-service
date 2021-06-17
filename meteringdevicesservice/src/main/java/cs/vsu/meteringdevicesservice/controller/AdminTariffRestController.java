@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,9 +26,11 @@ public class AdminTariffRestController {
     private static final String ELECTRICITY = ServiceService.ServiceName.ELECTRICITY.name().toLowerCase();
 
     private final TariffService tariffService;
+    private final ServiceService serviceService;
 
-    public AdminTariffRestController(TariffService tariffService) {
+    public AdminTariffRestController(TariffService tariffService, ServiceService serviceService) {
         this.tariffService = tariffService;
+        this.serviceService = serviceService;
     }
 
     @GetMapping()
@@ -69,7 +72,14 @@ public class AdminTariffRestController {
     @PostMapping()
     public void createOrUpdateTariff(@RequestBody TariffDto tariffDto) {
         if (tariffDto != null) {
-            tariffService.createOrUpdate(tariffDto.toTariff());
+            try {
+                Tariff tariff = tariffService.getActiveTariffByService(tariffDto.getServiceName());
+                tariff.setCost(tariffDto.getCost());
+                tariff.setDate(new Date());
+                tariffService.createOrUpdate(tariff);
+            } catch (NotFoundException e) {
+                log.error("Tariff not found.", e);
+            }
         }
     }
 

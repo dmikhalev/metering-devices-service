@@ -24,8 +24,8 @@ public class BuildingService {
         return new ArrayList<>(buildingRepository.findAll());
     }
 
-    public List<Building> findAllByPostcode(long postcode) {
-        return new ArrayList<>(buildingRepository.findAllByPostcode(postcode));
+    public Building findByCityAndStreetAndNumber(String city, String street, String number) {
+        return buildingRepository.findByCityAndStreetAndNumber(city, street, number).orElse(null);
     }
 
     public Building createOrUpdate(Building building) {

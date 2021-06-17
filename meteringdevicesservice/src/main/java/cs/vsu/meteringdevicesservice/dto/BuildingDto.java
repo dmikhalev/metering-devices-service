@@ -9,21 +9,19 @@ public class BuildingDto {
     private String number;
     private String street;
     private String city;
-    private Long postcode;
 
     public BuildingDto() {
     }
 
-    public BuildingDto(Long id, String number, String street, String city, Long postcode) {
+    public BuildingDto(Long id, String number, String street, String city) {
         this.id = id;
         this.number = number;
         this.street = street;
         this.city = city;
-        this.postcode = postcode;
     }
 
     public Building toBuilding() {
-        return new Building(id, number, street, city, postcode);
+        return new Building(id, number, street, city);
     }
 
     public static BuildingDto fromBuilding(Building building) {
@@ -31,7 +29,6 @@ public class BuildingDto {
                 building.getId(),
                 building.getNumber(),
                 building.getStreet(),
-                building.getCity(),
-                building.getPostcode());
+                building.getCity());
     }
 }
