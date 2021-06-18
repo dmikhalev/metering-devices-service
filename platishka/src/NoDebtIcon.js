@@ -1,6 +1,6 @@
 export function NoDebtIcon() {
     return (
-        <svg width="100" height="100" viewBox="0 0 128 127" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+        <svg width="64" height="64" viewBox="0 0 128 127" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             <rect y="0.193787" width="128" height="126.362" fill="url(#noDebt)"/>
             <defs>
                 <pattern id="noDebt" patternContentUnits="objectBoundingBox" width="1" height="1">

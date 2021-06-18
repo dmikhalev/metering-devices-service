@@ -21,11 +21,13 @@ export function Navigation({isLoggedIn}) {
                     <Link to="/faq">
                         <Button text="FAQ" color="white"/>
                     </Link>
-                    <Link to="docs">
+                    <Link to="/docs">
                         <Button text="Документы" color="white"/>
                     </Link>
                 </div>
-                <Button text={isLoggedIn ? "Выход" : "Вход"} color="red"/>
+                <Link to="/login">
+                    <Button text={isLoggedIn ? "Выход" : "Вход"} color="red" />
+                </Link>
             </section>
         </article>
     );

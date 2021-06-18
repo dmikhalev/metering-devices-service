@@ -15,12 +15,9 @@ import {TarifPage} from "./TarifPage/TarifPage";
 import {ApartmentCrud} from "./ApartmentCRUD/ApartmentCrud";
 import {AddInfo} from "./AddInfo/AddInfo";
 import Cookies from 'universal-cookie';
+import {Payment} from "./Payment/Payment";
+import Appi from "./TryPay/Appi";
 
-const cookies = new Cookies();
-
-cookies.set('isLoggedIn', false);
-
-console.log(cookies.get('myCat'));
 function App() {
     return (
         <BrowserRouter>
@@ -63,6 +60,12 @@ function App() {
                 </Route>
                 <Route path="/admin/info">
                     <AddInfo/>
+                </Route>
+                <Route path="/payment">
+                    <Payment/>
+                </Route>
+                <Route path="/test_pay">
+                    <Appi/>
                 </Route>
 
             </Switch>

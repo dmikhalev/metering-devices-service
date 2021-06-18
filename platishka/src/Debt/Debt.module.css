@@ -1,0 +1,51 @@
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    /*border: 1px solid #dddddd;*/
+    border-collapse: collapse;
+    padding: 10px;
+
+}
+.table th {
+    font-weight: bold;
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+}
+.table td {
+    /*border: 1px solid #dddddd;*/
+
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.debt {
+    /* Rectangle 97 */
+
+    /*width: 220px;*/
+    display: flex;
+    height: 55px;
+    margin-right: 30px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+
+}
+.card {
+
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    horiz-align: center;
+    row-gap: 20px;
+    /*max-width: 600px;*/
+    gap: 50px;
+    margin: 0 auto 30px;
+    /*margin-bottom: 30px;*/
+    width: 300px;
+    border: 1px solid #000000;
+    border-radius: 12px;
+}
+

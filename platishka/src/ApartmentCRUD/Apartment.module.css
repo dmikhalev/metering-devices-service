@@ -6,6 +6,7 @@
 }
 .table th {
     font-weight: bold;
+    font-size: 12px;
     padding: 5px;
     background: #efefef;
     border: 1px solid #dddddd;
@@ -13,4 +14,29 @@
 .table td {
     border: 1px solid #dddddd;
     padding: 5px;
+    font-size: 12px;
+}
+.addButton {
+    width: 80px;
+    height: 25px;
+    background: #82D8D3;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    border: 0;
+}
+h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40%;
 }
