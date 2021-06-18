@@ -80,7 +80,11 @@ public class UserRestControllerV1 {
         UserPageDto result = new UserPageDto();
         String address = userService.buildUserAddress(user);
         result.setAddress(address);
+        result.setUsername(user.getLogin());
         Apartment apartment = user.getApartment();
+        if (apartment == null) {
+            return result;
+        }
         Building building = apartment.getBuilding();
         List<ReceiptData> receiptDataList = receiptDataService.findAllByBuildingId(building.getId());
         result.setGasPersonalCode(apartment.getGasCode());
@@ -147,16 +151,6 @@ public class UserRestControllerV1 {
         }
         List<PaymentHistoryDto> result = getPaymentHistoryDtos(user);
         return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/username")
-    public ResponseEntity<String> getUsername() {
-        User user = findAuthorizedUser();
-        if (user == null) {
-            log.error("User not found.");
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(user.getLogin(), HttpStatus.OK);
     }
 
     private List<PaymentHistoryDto> getPaymentHistoryDtos(User user) {

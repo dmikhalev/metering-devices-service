@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserPageDto {
+    private String username;
     private String address;
 
     private Long gasPersonalCode;

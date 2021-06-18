@@ -49,6 +49,9 @@ public class UserService {
 
     public String buildUserAddress(User user) {
         Apartment apartment = user.getApartment();
+        if (apartment == null) {
+            return "";
+        }
         Building building = apartment.getBuilding();
         return "г." + building.getCity() +
                 ", ул." + building.getStreet() +
