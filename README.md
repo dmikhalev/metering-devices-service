@@ -15,6 +15,6 @@
 * [Курсовой проект](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Course_project.pdf)
 
 # Видео
-* [Веб-приложение](https://github.com/dmikhalev/metering-devices-service/blob/master/videos/web.mkv)
-* [Телеграмм бот](https://github.com/dmikhalev/metering-devices-service/blob/master/videos/tg-bot.mp4)
+* [Веб-приложение](https://disk.yandex.ru/i/yEcI8pyU2atVxA)
+* [Телеграмм бот](https://disk.yandex.ru/i/z-ey-9hGOec8Xg)
 
