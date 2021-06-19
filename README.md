@@ -1,5 +1,5 @@
-# Услуги в дом
-### Сервис оплаты коммунальных услуг "Услуги в дом"
+# Услуги В Дом
+### Сервис по оплате коммунальных услуг "УслугиВДдом"
 
 * yuliashishko - Шишко Юлия
 * dmikhalev - Михалев Дмитрий
@@ -11,7 +11,10 @@
 * [Figma](https://www.figma.com/file/GBFgLYotUzHEIXUfyqTi0u/TP?node-id=0%3A1)
 
 # Документация
-* [Техническое задание pdf](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Technical_task.pdf)
-* [Техническое задание docx](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Technical_task.docx)
-* [Курсовой проект pdf](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Course_project_2_att.pdf)
-* [Курсовой проект docx](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Course_project_2_att.docx)
+* [Техническое задание](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Technical_task.pdf)
+* [Курсовой проект](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Course_project.pdf)
+
+# Видео
+* [Веб-приложение](https://github.com/dmikhalev/metering-devices-service/blob/master/videos/web.mkv)
+* [Телеграмм бот](https://github.com/dmikhalev/metering-devices-service/blob/master/videos/tg-bot.mp4)
+
