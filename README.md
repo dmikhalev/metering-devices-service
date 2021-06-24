@@ -16,10 +16,10 @@
 # Документация
 * [Техническое задание](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Technical_task.pdf)
 * [Курсовой проект](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Course_project.pdf)
-* [Курсовой проект](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Presentation.pdf)
+* [Презентация](https://github.com/dmikhalev/metering-devices-service/blob/master/Documentation/Presentation.pdf)
 
 # Видео
 * [Веб-приложение](https://disk.yandex.ru/i/yEcI8pyU2atVxA)
-* [Телеграмм бот](https://disk.yandex.ru/i/z-ey-9hGOec8Xg)
+* [Телеграм бот](https://disk.yandex.ru/i/z-ey-9hGOec8Xg)
 * [Видео презентация](https://disk.yandex.ru/i/I3SCI6dSMXOLng)
 
